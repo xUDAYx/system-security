@@ -1,0 +1,45 @@
+#include <iostream>
+using namespace std;
+
+string encryption(string text,int key)
+{
+    int len = text.length();
+    char c =' ';
+    string encrypt ="";
+
+    for (int i= 0; i < len; i++)
+    {
+        if ((text[i]) == ' ')
+        {
+            encrypt += ' ';
+        }
+        else if (isupper(text[i]))
+        {
+            c = char(((int(text[i])) + key - 65 )%26 + 65);
+            // example : a==> 65 ==> 66(key =1) ==> 01(-65) ==> 1(%26) ==> 66(+65)
+            //           z==> 92 ==> 93(key =1) ==> 27(-65) ==> 1(%26) ==> 66(+65)
+            encrypt += c;     
+        }
+        else
+        {
+            c = char(((int(text[i])) + key - 97 )%26 + 97);
+            encrypt += c; 
+        }
+    } 
+
+    return encrypt;
+}
+
+
+
+int main()
+{
+    string text = " ";
+    int key = 0;
+
+    cout<<"ENTER YOUR TEXT (string)  : ";
+    getline(cin, text);
+    cout<<"ENTER YOUR KEY (integer)  : ";
+    cin>>key;
+    cout<< "ENCRYPTED DATA           : "<< encryption(text, key);
+}

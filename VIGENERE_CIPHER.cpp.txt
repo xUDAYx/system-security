@@ -1,0 +1,57 @@
+#include <iostream>
+
+using namespace std;
+
+
+string encryption(string text, string key)
+{
+    string newkey ="";
+    string encrypt="";
+    
+    int text_len = text.length();
+    int key_len = key.length();
+    
+    int quotent = text_len/key_len;
+    int modulus = text_len%key_len;
+
+    for (int i = 0; i<quotent;i++)
+    {
+        newkey+=key;
+    }
+    for (int i = 0; i<modulus; i++)
+    {
+        newkey+=key[i];
+    }
+    cout<<"NEWKEY                     :"<<newkey<<endl;
+
+    for (int i =0 ; i<text_len ; i++)
+    {
+        encrypt += (char (((( newkey[i] + text[i]) ) % 26)+65)) ;
+    }
+    return encrypt;
+
+}
+
+int main()
+{
+    string text="";
+    string key ="";
+    string fintext ="";
+    string finkey ="";
+
+    cout<<"ENTER YOUR TEXT TO ENCRYPT :";
+    getline(cin,text);
+    for (int i=0; i<text.length(); i++)
+    {
+        fintext += toupper(text[i]); 
+    }
+
+    cout<<"ENTER YOUR KEY             :";
+    getline(cin,key);
+    for (int i=0; i<key.length(); i++)
+    {
+        finkey += toupper(key[i]); 
+    }
+
+    cout<<"ENCRYPTED TEXT             :"<<encryption(fintext, finkey);
+}
